@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rizal Reimagined: A Digital Reflection | GE 206</title>
+  <meta name="description" content="A reflective website on the life, works, contributions, and legacy of Dr. José Rizal by IT students.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #ffffff;
+      --bg-surface: #f9fafb;
+      --bg-alt: #f3f4f6;
+      --border-color: #d1d5db;
+      --text-main: #111827;
+      --text-muted: #374151;
+      --primary: #1f2937;
+      --accent-gold: #b45309;
+      --accent-burgundy: #991b1b;
+      --box-accent-bg: #fffbeb;
+      --box-critical-bg: #fef2f2;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --header-h: 84px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.75;
+      color: var(--text-main);
+      background: var(--bg-main);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .logo {
+      font-family: 'Cinzel', Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-main);
+    }
+    p, li { font-size: 1.05rem; color: var(--text-main); }
+
+    a { color: #1d4ed8; text-decoration: underline; font-weight: 500; transition: color 0.2s ease; overflow-wrap: anywhere; }
+    a:hover { color: #1e40af; }
+    :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
+
+    .skip-link {
+      position: absolute; left: 1rem; top: -4rem; z-index: 2000;
+      background: #fcd34d; color: #111827; padding: 0.6rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 700;
+    }
+    .skip-link:focus { top: 0.75rem; }
+
+    .container { max-width: 1050px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Header & Nav */
+    header {
+      background: #111827; color: #ffffff; padding: 1rem 0;
+      position: sticky; top: 0; z-index: 1000;
+      border-bottom: 3px solid #f59e0b; box-shadow: var(--shadow-md);
+    }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .logo { font-size: 1.35rem; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; }
+    .logo span { color: #fcd34d; }
+    nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    nav a { color: #ffffff; font-weight: 600; font-size: 0.95rem; text-decoration: none; letter-spacing: 0.3px; }
+    nav a:hover { color: #fcd34d; text-decoration: underline; }
+
+    /* Hero */
+    section.hero {
+      background: #f4f4f5; color: #111827; padding: 5.5rem 0 4.5rem; text-align: center;
+      border-bottom: 2px solid #d1d5db;
+    }
+    .hero h1 { color: #111827; font-size: clamp(2rem, 5vw, 3.4rem); margin-bottom: 1rem; }
+    .hero .tagline { font-size: 1.25rem; max-width: 720px; margin: 0 auto 2.5rem; color: #374151; font-weight: 500; }
+    .central-message {
+      background: #ffffff; border: 1px solid #d1d5db; border-left: 5px solid #b45309;
+      padding: 2rem; max-width: 850px; margin: 0 auto; border-radius: 6px;
+      font-size: 1.15rem; font-style: italic; color: #111827; box-shadow: var(--shadow-sm); text-align: left;
+    }
+    .hero-meta { margin-top: 2rem; color: #374151; font-weight: 600; font-size: 0.95rem; }
+
+    /* Sections */
+    section { padding: 4.5rem 0; border-bottom: 1px solid var(--border-color); }
+    section.alt { background: var(--bg-surface); }
+    section.intro { padding-top: 3.5rem; }
+
+    .section-title { font-size: 2.1rem; margin-bottom: 1rem; position: relative; display: inline-block; }
+    .section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 4px; background: var(--accent-gold); }
+    .subtitle { font-weight: 600; color: var(--text-muted); margin-bottom: 2.2rem; font-size: 1.15rem; }
+
+    /* Cards & Content */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.75rem; margin: 2.5rem 0; }
+    .card {
+      background: #ffffff; border-radius: 6px; padding: 2rem;
+      border: 1px solid var(--border-color); border-top: 5px solid var(--primary); box-shadow: var(--shadow-sm);
+    }
+    .card h3 { font-size: 1.25rem; margin-bottom: 0.85rem; }
+
+    .highlight-box {
+      background: var(--box-accent-bg); border: 1px solid #fde68a; border-left: 5px solid var(--accent-gold);
+      padding: 1.75rem; margin: 2rem 0; border-radius: 6px; color: #78350f;
+    }
+    .highlight-box strong { color: #451a03; }
+    .highlight-box, .critical-box { }
+    .highlight-box p, .highlight-box { font-size: 1.05rem; }
+
+    .critical-box {
+      background: var(--box-critical-bg); border: 1px solid #fecaca; border-left: 5px solid var(--accent-burgundy);
+      padding: 1.75rem; margin: 2rem 0; border-radius: 6px; color: #7f1d1d;
+    }
+    .critical-box p { color: #7f1d1d; }
+
+    blockquote {
+      font-style: italic; font-size: 1.15rem; color: var(--text-main); background: var(--bg-alt);
+      border-left: 5px solid var(--primary); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: 0 6px 6px 0;
+    }
+
+    .fact, .opinion { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+    .fact { color: #1e3a8a; }
+    .opinion { color: #991b1b; }
+    .critical-box .fact { color: #7f1d1d; }
+
+    /* Contributions */
+    .timeline-item {
+      margin-bottom: 2.5rem; padding: 1.75rem; background: #ffffff;
+      border: 1px solid var(--border-color); border-left: 5px solid var(--accent-gold); /* fixed: left border now declared AFTER the shorthand */
+      border-radius: 0 6px 6px 0; box-shadow: var(--shadow-sm);
+    }
+    .timeline-item h3 { margin-bottom: 0.75rem; }
+    .timeline-item p + p { margin-top: 0.75rem; }
+
+    .content-list { margin: 1rem 0 1.5rem 1.5rem; }
+    .content-list li { margin-bottom: 0.5rem; }
+
+    /* Members */
+    .members { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 1.5rem; }
+    .member { background: var(--bg-alt); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; }
+
+    /* References */
+    .refs ul { list-style: none; }
+    .refs li { margin-bottom: 0.85rem; padding-left: 1.5rem; position: relative; font-size: 0.98rem; }
+    .refs li::before { content: "▸"; position: absolute; left: 0; color: var(--accent-gold); font-weight: bold; }
+
+    /* Toggle */
+    .toggle-btn {
+      background: var(--primary); color: #ffffff; border: none; padding: 0.75rem 1.4rem; border-radius: 6px;
+      cursor: pointer; font-weight: 600; font-size: 0.95rem; margin: 1.5rem 0 0; transition: background 0.2s ease; font-family: inherit;
+    }
+    .toggle-btn:hover { background: #111827; }
+    .extra-content { display: none; margin-top: 1.25rem; padding: 1.5rem; background: var(--bg-alt); border: 1px solid var(--border-color); border-radius: 6px; }
+    .extra-content.show { display: block; }
+
+    /* Footer */
+    footer { background: #111827; color: #f3f4f6; padding: 3rem 0; text-align: center; font-size: 0.95rem; border-top: 3px solid #f59e0b; }
+    footer p { color: #f3f4f6; font-size: 0.95rem; }
+    footer strong { color: #ffffff; }
+    footer .quote { color: #fcd34d; font-style: italic; margin-top: 1rem; }
+    footer .copy { color: #d1d5db; font-size: 0.85rem; margin-top: 1.5rem; }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      :root { --header-h: 110px; }
+      header { padding: 0.6rem 0; }
+      .logo { font-size: 1.15rem; }
+      nav { gap: 0.4rem 1rem; }
+      nav a { font-size: 0.85rem; }
+      section.hero { padding: 3.5rem 0; }
+      section { padding: 3rem 0; }
+      .section-title { font-size: 1.7rem; }
+      .central-message { padding: 1.25rem; font-size: 1.05rem; }
+      .timeline-item, .card { padding: 1.25rem; }
+      blockquote { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+  <div class="container nav-wrap">
+    <div class="logo">Rizal <span>Reimagined</span></div>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#contributions">Contributions</a>
+      <a href="#critical">Critical Look</a>
+      <a href="#lessons">Lessons Today</a>
+      <a href="#reflection">Our Reflection</a>
+      <a href="#references">References</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HOME / HERO -->
+<section id="home" class="hero">
+  <div class="container">
+    <h1>Rizal Reimagined</h1>
+    <p class="tagline">A Digital Reflection on the Life, Works, and Enduring Legacy of Dr. José Rizal</p>
+    <div class="central-message">
+      “Rizal did not merely write novels or die a martyr. He forced Filipinos to see themselves as a people with dignity, history, and the right to shape their future. Today, his unfinished work challenges us—especially as future IT professionals—to use knowledge and technology not for convenience alone, but for truth, justice, and nation-building.”
+    </div>
+    <p class="hero-meta">
+      GE 206 – Life and Works of Rizal | Semester 1, AY 2026–2027<br>
+      Performance Task by IT Students
+    </p>
+  </div>
+</section>
+
+<section id="purpose" class="intro">
+  <div class="container">
+    <h2 class="section-title">Purpose of This Project</h2>
+    <p class="subtitle">Beyond biography — toward critical citizenship</p>
+    <p>This website is our group’s collective reflection. We do not simply retell Rizal’s story. We examine what his contributions mean for Philippine national consciousness, confront uncomfortable aspects of his decisions with historical honesty, extract living lessons for our generation, and ask how we—as future information technology professionals—can turn those lessons into ethical digital practice.</p>
+    <p style="margin-top: 1rem;">We distinguish established historical facts from our interpretations. Every claim is grounded in credible sources. Design serves substance: clear navigation, readable typography, and purposeful interaction so that reflection is accessible, not ornamental.</p>
+
+    <h3 style="margin-top: 2.5rem;">Group Members</h3>
+    <ul class="members" style="list-style: none;">
+      <li class="member">Rochelle Mae Salvador</li>
+      <li class="member">Janna Tabag</li>
+      <li class="member">Nicole Truz</li>
+      <li class="member">Nikki Blobble Araya</li>
+      <li class="member">Leo Victor Shaun Leuterio</li>
+    </ul>
+    <p style="margin-top: 1rem; font-size: 0.92rem; color: var(--text-muted);">Every member contributed to research, analysis, writing, design, coding, and testing.</p>
+  </div>
+</section>
+
+<!-- CONTRIBUTIONS -->
+<section id="contributions" class="alt">
+  <div class="container">
+    <h2 class="section-title">Rizal’s Most Significant Contributions</h2>
+    <p class="subtitle">Awakening a nation and forging Filipino consciousness</p>
+
+    <div class="timeline-item">
+      <h3>1. The Novels: <em>Noli Me Tángere</em> (1887) and <em>El Filibusterismo</em> (1891)</h3>
+      <p><span class="fact">Historical fact:</span> Written and published in Europe (Berlin and Ghent), these novels exposed the abuses of Spanish friars, colonial officials, and the social cancer of oppression, corruption, and hypocrisy. They circulated secretly in the Philippines and became the intellectual spark of the nationalist movement.</p>
+      <p><span class="opinion">Our interpretation:</span> More than literature, they were mirrors. Filipinos saw their own suffering named and condemned. The characters—Crisostomo Ibarra, Elias, Simoun, Maria Clara—became archetypes that still resonate. The novels transformed private grievances into a shared national narrative.</p>
+      <p><strong>Why still relevant:</strong> They model the power of storytelling and evidence-based critique against power. In an age of disinformation, Rizal’s method—careful observation + moral courage + public writing—remains a template for holding institutions accountable.</p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>2. Annotation of Antonio de Morga’s <em>Sucesos de las Islas Filipinas</em> (1890)</h3>
+      <p><span class="fact">Historical fact:</span> Rizal painstakingly annotated the 1609 work to prove that Filipinos had a sophisticated pre-colonial civilization, commerce, and culture long before Spain arrived. This directly countered the colonial myth that Filipinos were “savages” needing civilization.</p>
+      <p><span class="opinion">Our view:</span> This was an act of historical reclamation. By restoring dignity to the past, Rizal gave Filipinos a foundation for pride and unity across islands and ethnic groups—the beginning of a truly national consciousness rather than mere regional loyalties.</p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>3. Leadership in the Propaganda Movement &amp; Founding of La Liga Filipina (1892)</h3>
+      <p><span class="fact">Historical fact:</span> Through essays in <em>La Solidaridad</em> and the founding of La Liga Filipina in Tondo on July 3, 1892, Rizal shifted from pure propaganda abroad to concrete civic organization at home. The Liga aimed at mutual protection, education, economic cooperation, and peaceful reforms (representation in the Cortes, equality before the law, secularization of the clergy). He was arrested days later and exiled to Dapitan.</p>
+      <p>La Liga’s dissolution after his arrest helped give birth to the more radical Katipunan, showing how reformist efforts can radicalize when blocked.</p>
+    </div>
+
+    <div class="timeline-item">
+      <h3>4. Embodiment of the Filipino as Capable and Universal</h3>
+      <p>Physician, novelist, poet, sculptor, linguist (22+ languages), scientist, educator, farmer. Rizal’s life itself disproved colonial inferiority narratives. His martyrdom on December 30, 1896, turned him into the Revolution’s most powerful symbol even though he did not lead it.</p>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Central relevance today:</strong> Rizal taught that national consciousness is built through education, historical truth-telling, civic organization, and moral example—not only through force. In 2026 these remain the prerequisites for genuine sovereignty and social progress.
+    </div>
+  </div>
+</section>
+
+<!-- CRITICAL LOOK -->
+<section id="critical">
+  <div class="container">
+    <h2 class="section-title">A Critical Look at Rizal</h2>
+    <p class="subtitle">His reluctance toward the 1896 Revolution — examined in historical context</p>
+
+    <p>We choose one decision that still deserves honest discussion: <strong>Rizal’s consistent preference for education and peaceful reform over immediate armed revolution, and his explicit condemnation of the Katipunan uprising in 1896.</strong></p>
+
+    <div class="critical-box">
+      <p><span class="fact">Historical record:</span> When approached by Pio Valenzuela on behalf of the Katipunan while in Dapitan exile, Rizal refused support (accounts vary slightly on exact words, but the thrust is clear). In his December 1896 manifesto he wrote that he opposed the uprising from the beginning, called its methods criminal, and insisted that reforms must come “from above” and that the people must first be educated and made worthy of liberty. He was en route to serve as a physician for Spain in Cuba when arrested. He was executed anyway for sedition—his writings alone were deemed dangerous.</p>
+    </div>
+
+    <h3 style="margin-top: 2rem;">Historical Context (not present-day judgment)</h3>
+    <ul class="content-list">
+      <li>Rizal was an <em>ilustrado</em>—educated elite who had seen European liberalism, the failures of premature revolts, and the French Revolution’s excesses.</li>
+      <li>He repeatedly warned that the slaves of today could become the tyrants of tomorrow if the people lacked education, civic virtue, and preparation.</li>
+      <li>In <em>El Filibusterismo</em>, Simoun’s violent plot fails precisely because it lacks a moral and educated base.</li>
+      <li>La Liga Filipina was his last major attempt to build that base through mutual aid and civic habits.</li>
+    </ul>
+
+    <h3>Scholarly Debate</h3>
+    <p style="margin-top: 0.5rem;">Renato Constantino’s famous 1969 lecture “Veneration Without Understanding” argued that Rizal’s repudiation of the Revolution makes him an incomplete or even counter-revolutionary hero whose elevation was convenient for American colonial policy (a non-militant symbol). Others counter that Rizal’s writings and martyrdom made the Revolution possible and that his caution was realistic given the lack of arms, unity, and international support in 1896.</p>
+
+    <p style="margin-top: 1rem;"><span class="opinion">Our group’s balanced reflection:</span> Rizal was neither traitor nor flawless saint. His class position and European formation limited his trust in spontaneous mass action. Yet that same formation gave him the intellectual tools to diagnose colonialism more deeply than almost anyone of his time. His insistence on preparation and education was not cowardice; it was a long-term nation-building strategy. The tragedy is that Spain’s intransigence made gradual reform impossible, and his execution radicalized the very movement he hesitated to join. We can honor the spark he provided while still critiquing the gap between ilustrado reformism and the urgent needs of the masses. Heroism does not require perfection; it requires us to learn from both strengths and limitations.</p>
+
+    <button class="toggle-btn" id="toggleBtn" type="button" aria-expanded="false" aria-controls="extra">Show deeper discussion on the Retraction Controversy</button>
+    <div id="extra" class="extra-content" role="region" aria-label="Retraction controversy">
+      <p>Another contested point is the alleged retraction of anti-clerical views hours before death. Historians remain divided: some accept the document; others (including handwriting analyses and character arguments) call it a pious fraud. We note the controversy exists and that it does not erase the body of his work. For this project we focus on the clearer, better-documented issue of his stance on revolution.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LESSONS -->
+<section id="lessons" class="alt">
+  <div class="container">
+    <h2 class="section-title">Rizal’s Lessons for Today’s Generation</h2>
+    <p class="subtitle">Values that still speak to misinformation, corruption, and civic apathy</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>1. Education + Critical Thinking as Liberation</h3>
+        <p>Rizal believed ignorance was the root of oppression. Today this maps directly onto <strong>digital misinformation and deepfakes</strong>. Young Filipinos must treat every viral post the way Rizal treated colonial claims—cross-check sources, demand evidence, and write/share truth carefully.</p>
+      </div>
+      <div class="card">
+        <h3>2. Integrity Against Systemic Corruption</h3>
+        <p>The friars and officials in the <em>Noli</em> and <em>Fili</em> mirror modern graft (flood-control scandals, etc.). Rizal’s lesson: expose without becoming the monster you fight. Civic duty includes scrutinizing budgets, demanding transparency, and refusing to normalize “kalakaran.”</p>
+      </div>
+      <div class="card">
+        <h3>3. Active, Not Performative, Patriotism</h3>
+        <p>Liking a flag filter is not enough. Rizal organized, wrote, taught, farmed, and healed. Against civic apathy he models daily habits of excellence, mutual aid, and speaking up even when costly.</p>
+      </div>
+      <div class="card">
+        <h3>4. Dignity of the Filipino &amp; Cultural Pride</h3>
+        <p>In a globalized, often Western-dominated digital culture, Rizal’s reclamation of pre-colonial worth reminds us to master global tools without erasing our own stories, languages, and values.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Contemporary connection:</strong> When fake news spreads faster than facts, when corruption steals from the poor, and when many feel “walang magagawa,” Rizal’s life answers: prepare yourself thoroughly, organize with others, tell the truth publicly, and accept that real change is slow, costly, and collective.
+    </div>
+  </div>
+</section>
+
+<!-- OUR REFLECTION -->
+<section id="reflection">
+  <div class="container">
+    <h2 class="section-title">Personal and Collective Reflection</h2>
+    <p class="subtitle">As future IT professionals and Filipino citizens</p>
+
+    <p>Studying Rizal has challenged our earlier, simplified school-book image of a perfect hero. We now see a complex man—brilliant, flawed, strategic, and ultimately sacrificial—whose greatest gift was forcing a people to imagine themselves as a nation. Citizenship is not a spectator sport or a holiday hashtag. Patriotism is the daily discipline of competence, honesty, and solidarity. Social responsibility means using whatever power we gain (education, skills, platforms) for the common good rather than private comfort.</p>
+
+    <h3 style="margin-top: 2rem;">How we will apply these lessons in Information Technology</h3>
+    <ul class="content-list">
+      <li><strong>Combat disinformation:</strong> Build and promote fact-checking tools, media-literacy apps, and transparent algorithms. Refuse to design engagement systems that reward outrage over truth.</li>
+      <li><strong>Ethical software &amp; data:</strong> Privacy-by-design, inclusive interfaces, accessible technology for rural and marginalized communities—echoing Rizal’s insistence that the people must be prepared and empowered.</li>
+      <li><strong>Digital civic platforms:</strong> Create open-source tools for transparency (budget trackers, FOI helpers, community organizing platforms) so that “reforms from below” become more possible and informed.</li>
+      <li><strong>Personal integrity in tech careers:</strong> Reject “move fast and break things” when it breaks people or democracy. Choose employers and projects that align with public interest. Teach digital literacy the way Rizal taught in Dapitan.</li>
+      <li><strong>Nation-building through code:</strong> Support Filipino language technologies, local content platforms, and cybersecurity that protects rather than surveils citizens.</li>
+    </ul>
+
+    <blockquote>
+      “We are the generation that can turn Rizal’s unfinished intellectual revolution into a digital one—where truth is harder to suppress, corruption harder to hide, and every Filipino has the tools to participate.”
+    </blockquote>
+
+    <p>This project itself is our first small act: using web technology not for grades alone, but to think publicly, cite honestly, design accessibly, and invite others into deeper reflection. That is the spirit of La Liga Filipina updated for the 21st century.</p>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references" class="refs alt">
+  <div class="container">
+    <h2 class="section-title">Credible References</h2>
+    <p class="subtitle">Historical facts distinguished from our interpretations. All images and borrowed ideas acknowledged.</p>
+    <ul>
+      <li>Britannica Editors. “José Rizal.” <em>Encyclopaedia Britannica</em>. <a href="https://www.britannica.com/biography/Jose-Rizal" target="_blank" rel="noopener">https://www.britannica.com/biography/Jose-Rizal</a></li>
+      <li>Constantino, Renato. “Veneration Without Understanding.” 1969 Rizal Lecture (published 1970/1972). Critical analysis of Rizal’s hero status and stance on the Revolution.</li>
+      <li>Guerrero, León Ma. <em>The First Filipino: A Biography of José Rizal</em>. 1963 (and later editions).</li>
+      <li>Primary writings: Rizal, José. <em>Noli Me Tángere</em> (1887), <em>El Filibusterismo</em> (1891), annotations to Morga (1890), La Liga Filipina statutes (1892), Manifesto of 15 December 1896, <em>Mi Último Adiós</em>.</li>
+      <li>Ocampo, Ambeth R. Various essays and books on Rizal (e.g., discussions of Valenzuela meeting and retraction).</li>
+      <li>Additional scholarly context: works by Cesar Adib Majul, Floro Quibuyen, Lisandro Claudio, and contemporary analyses on Rizal’s liberalism, La Liga, and relevance to corruption/misinformation (Inquirer, academic journals 2020–2025).</li>
+      <li>Historical overviews: Agoncillo, Teodoro A. <em>History of the Filipino People</em>; sites such as joserizal.com (well-sourced timelines) cross-checked against academic sources.</li>
+    </ul>
+    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">Images: This website uses no copyrighted images. Any portraits or historical photos added should be public-domain works (e.g., from Wikimedia Commons) and credited here. The original analysis, structure, design, and reflective text are the work of the group.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p><strong>Rizal Reimagined: A Digital Reflection</strong></p>
+    <p style="margin-top: 0.25rem;">GE 206 – Life and Works of Rizal | Kent Joriz S. Mamalis, LPT | Semester 1, AY 2026–2027</p>
+    <p style="margin-top: 0.25rem;">Submitted as a group performance task.</p>
+    <p class="quote">“He who does not know how to look back at where he came from will never get to his destination.” — José Rizal (commonly attributed)</p>
+    <p class="copy">© 2026. For educational purposes.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById('toggleBtn');
+    var panel = document.getElementById('extra');
+    btn.addEventListener('click', function () {
+      var open = panel.classList.toggle('show');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open
+        ? 'Hide discussion on the Retraction Controversy'
+        : 'Show deeper discussion on the Retraction Controversy';
+    });
+  })();
+</script>
+</body>
+</html>
