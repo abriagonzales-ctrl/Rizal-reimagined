@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rizal Reimagined: A Digital Reflection | GE 206</title>
   <meta name="description" content="A reflective website on the life, works, contributions, and legacy of Dr. José Rizal by IT students.">
+  <meta property="og:title" content="Rizal Reimagined: A Digital Reflection">
+  <meta property="og:description" content="A GE 206 reflection on Rizal's contributions, critical issues, and lessons for IT students.">
+  <meta name="theme-color" content="#111827">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -163,6 +167,30 @@
     footer .quote { color: #fcd34d; font-style: italic; margin-top: 1rem; }
     footer .copy { color: #d1d5db; font-size: 0.85rem; margin-top: 1.5rem; }
 
+    /* Progress bar, active nav, back-to-top */
+    #progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; background: #f59e0b; z-index: 1500; }
+    nav a.active { color: #fcd34d; border-bottom: 2px solid #fcd34d; }
+    #toTop {
+      position: fixed; right: 1.25rem; bottom: 1.25rem; width: 3rem; height: 3rem; border-radius: 50%;
+      border: 2px solid #f59e0b; background: #111827; color: #fff; font-size: 1.3rem; cursor: pointer;
+      box-shadow: var(--shadow-md); opacity: 0; pointer-events: none; transition: opacity 0.25s ease; z-index: 900;
+    }
+    #toTop.show { opacity: 1; pointer-events: auto; }
+
+    /* Life timeline */
+    .life { list-style: none; position: relative; margin-top: 1rem; padding-left: 0; }
+    .life::before { content: ''; position: absolute; left: 5.2rem; top: 0.4rem; bottom: 0.4rem; width: 3px; background: var(--border-color); }
+    .life li { display: grid; grid-template-columns: 4.5rem 1fr; gap: 1.6rem; margin-bottom: 1.4rem; position: relative; }
+    .life li::after { content: ''; position: absolute; left: 4.82rem; top: 0.55rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gold); border: 2px solid #fff; }
+    .life .yr { font-family: 'Cinzel', Georgia, serif; font-weight: 800; font-size: 1.15rem; text-align: right; color: var(--accent-gold); }
+    .life .ev { font-size: 1rem; padding-left: 0.5rem; }
+
+    @media print {
+      header, #progress, #toTop, .toggle-btn, .skip-link { display: none !important; }
+      .extra-content { display: block !important; }
+      section { padding: 1.5rem 0; page-break-inside: avoid; }
+    }
+
     /* Responsive */
     @media (max-width: 700px) {
       :root { --header-h: 110px; }
@@ -170,6 +198,7 @@
       .logo { font-size: 1.15rem; }
       nav { gap: 0.4rem 1rem; }
       nav a { font-size: 0.85rem; }
+      .life::before { left: 3.6rem; } .life li { grid-template-columns: 3rem 1fr; gap: 1.4rem; } .life li::after { left: 3.22rem; } .life .yr { font-size: 0.95rem; }
       section.hero { padding: 3.5rem 0; }
       section { padding: 3rem 0; }
       .section-title { font-size: 1.7rem; }
@@ -181,6 +210,7 @@
 </head>
 <body>
 
+<div id="progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header>
@@ -188,6 +218,7 @@
     <div class="logo">Rizal <span>Reimagined</span></div>
     <nav aria-label="Main navigation">
       <a href="#home">Home</a>
+      <a href="#timeline">Life</a>
       <a href="#contributions">Contributions</a>
       <a href="#critical">Critical Look</a>
       <a href="#lessons">Lessons Today</a>
@@ -233,8 +264,25 @@
   </div>
 </section>
 
+<!-- LIFE TIMELINE -->
+<section id="timeline" class="alt">
+  <div class="container">
+    <h2 class="section-title">Rizal at a Glance</h2>
+    <p class="subtitle">Key moments from Calamba to Bagumbayan</p>
+    <ol class="life">
+      <li><span class="yr">1861</span><span class="ev">Born on June 19 in Calamba, Laguna.</span></li>
+      <li><span class="yr">1882</span><span class="ev">Leaves for Spain to continue his studies in medicine.</span></li>
+      <li><span class="yr">1887</span><span class="ev"><em>Noli Me Tángere</em> is published in Berlin.</span></li>
+      <li><span class="yr">1890</span><span class="ev">Publishes his annotated edition of Morga’s <em>Sucesos</em>.</span></li>
+      <li><span class="yr">1891</span><span class="ev"><em>El Filibusterismo</em> is published in Ghent.</span></li>
+      <li><span class="yr">1892</span><span class="ev">Founds La Liga Filipina on July 3, is arrested days later, and is exiled to Dapitan.</span></li>
+      <li><span class="yr">1896</span><span class="ev">Arrested while sailing to Cuba and executed on December 30 at Bagumbayan.</span></li>
+    </ol>
+  </div>
+</section>
+
 <!-- CONTRIBUTIONS -->
-<section id="contributions" class="alt">
+<section id="contributions">
   <div class="container">
     <h2 class="section-title">Rizal’s Most Significant Contributions</h2>
     <p class="subtitle">Awakening a nation and forging Filipino consciousness</p>
@@ -270,7 +318,7 @@
 </section>
 
 <!-- CRITICAL LOOK -->
-<section id="critical">
+<section id="critical" class="alt">
   <div class="container">
     <h2 class="section-title">A Critical Look at Rizal</h2>
     <p class="subtitle">His reluctance toward the 1896 Revolution — examined in historical context</p>
@@ -302,7 +350,7 @@
 </section>
 
 <!-- LESSONS -->
-<section id="lessons" class="alt">
+<section id="lessons">
   <div class="container">
     <h2 class="section-title">Rizal’s Lessons for Today’s Generation</h2>
     <p class="subtitle">Values that still speak to misinformation, corruption, and civic apathy</p>
@@ -333,7 +381,7 @@
 </section>
 
 <!-- OUR REFLECTION -->
-<section id="reflection">
+<section id="reflection" class="alt">
   <div class="container">
     <h2 class="section-title">Personal and Collective Reflection</h2>
     <p class="subtitle">As future IT professionals and Filipino citizens</p>
@@ -358,7 +406,7 @@
 </section>
 
 <!-- REFERENCES -->
-<section id="references" class="refs alt">
+<section id="references" class="refs">
   <div class="container">
     <h2 class="section-title">Credible References</h2>
     <p class="subtitle">Historical facts distinguished from our interpretations. All images and borrowed ideas acknowledged.</p>
@@ -387,6 +435,8 @@
   </div>
 </footer>
 
+<button id="toTop" type="button" aria-label="Back to top">↑</button>
+
 <script>
   (function () {
     var btn = document.getElementById('toggleBtn');
@@ -399,6 +449,28 @@
         : 'Show deeper discussion on the Retraction Controversy';
     });
   })();
+
+  // Reading progress, back-to-top, active nav link
+  var bar = document.getElementById('progress'), top = document.getElementById('toTop');
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    top.classList.toggle('show', window.scrollY > 600);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  top.addEventListener('click', function () { window.scrollTo({ top: 0 }); });
+
+  var links = document.querySelectorAll('nav a');
+  var ids = ['home','timeline','contributions','critical','lessons','reflection','references'];
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
 </script>
 </body>
 </html>
